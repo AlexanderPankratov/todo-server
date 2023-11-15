@@ -1,4 +1,4 @@
-(() => {
+
     //  создаем и возвращаем заголовок приложения
     function createAppTitle(title) {
         const appTitle = document.createElement('h2');
@@ -129,7 +129,7 @@
                 headers: {
                     'Content-type': 'application/json',
                 }
-            })
+            });
 
             const todoItem = await response.json();
 
@@ -141,5 +141,4 @@
         })
     }
 
-    window.createTodoApp = createTodoApp;
-})()
+export { createTodoApp };
