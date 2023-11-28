@@ -110,6 +110,7 @@ async function createTodoApp(container,
         });
 
         const todoItemElement = createTodoItemElement(todoItem, handlers);
+        console.log(todoItem);
 
         todoList.append(todoItemElement);
 

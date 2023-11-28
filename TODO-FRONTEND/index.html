@@ -13,9 +13,23 @@
             switchTodoItemDone, 
             deleteTodoItem
          } from './todo-app/api.js';
+         import { getTodoListLocal } from './todo-app/local.js'
          const owner = 'Я';
          (async () => {
-            const todoItemList = await getTodoList(owner);
+            let storage = localStorage.getItem('storage');
+            let todoItemList;
+
+            if (storage) {
+                if ( storage === 'local' ) {
+                   todoItemList = getTodoListLocal(owner);
+                }
+
+                if ( storage === 'server' ) {
+                    todoItemList = await getTodoList(owner);
+                }
+            }
+
+            // const todoItemList = await getTodoList(owner);
             createTodoApp(document.getElementById('todo-app'), {
                 title: 'Мои дела',
                 owner,
