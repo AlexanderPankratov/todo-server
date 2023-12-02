@@ -28,15 +28,20 @@
             if (storage) {
                 if (storage === 'local') {
                     todoItemList = getTodoListLocal(owner);
+                    buttonSwitch.textContent = 'переключиться на серверное хранилище';
+                    localStorage.setItem('storage', JSON.stringify('server'));
                 }
 
                 if (storage === 'server') {
                     todoItemList = await getTodoList(owner);
-                    console.log(todoItemList)
+                    buttonSwitch.textContent = 'переключиться на локальное хранилище';
+                     localStorage.setItem('storage', JSON.stringify('local'));
                 }
+
             } else {
-                localStorage.setItem('storage', JSON.stringify('server'));
+                localStorage.setItem('storage', JSON.stringify('local'));
                 todoItemList = getTodoListLocal(owner);
+                buttonSwitch.textContent = 'переключиться на локальное хранилище';
             }
 
             buttonSwitch.addEventListener('click', async () => {
@@ -89,7 +94,7 @@
 <body>
     <div class="container mb-5">
         <div class="container mt-3 d-flex justify-content-end">
-            <button class="btn btn-warning btn-js">переключиться на серверное хранилище</button>
+            <button class="btn btn-warning btn-js"></button>
 
         </div>
         <nav class="nav">
