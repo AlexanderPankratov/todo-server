@@ -29,13 +29,11 @@
                 if (storage === 'local') {
                     todoItemList = getTodoListLocal(owner);
                     buttonSwitch.textContent = 'переключиться на серверное хранилище';
-                    localStorage.setItem('storage', JSON.stringify('server'));
                 }
 
                 if (storage === 'server') {
                     todoItemList = await getTodoList(owner);
                     buttonSwitch.textContent = 'переключиться на локальное хранилище';
-                     localStorage.setItem('storage', JSON.stringify('local'));
                 }
 
             } else {
@@ -49,19 +47,7 @@
                 let storage = JSON.parse(storageString);
 
                 if (storage === 'local') {
-                    todoItemList = getTodoListLocal(owner);
-                    buttonSwitch.textContent = 'переключиться на серверное хранилище';
-                    container.innerHTML = '';
-                    createTodoApp(document.getElementById('todo-app'), {
-                        title: 'Мои дела',
-                        owner,
-                        todoItemList,
-                        onCreateFormSubmit: createTodoItem,
-                        onDoneClick: switchTodoItemDone,
-                        onDeleteClick: deleteTodoItem,
-                    });
                     localStorage.setItem('storage', JSON.stringify('server'));
-                } else if (storage === 'server') {
                     todoItemList = await getTodoList(owner);
                     buttonSwitch.textContent = 'переключиться на локальное хранилище';
                     container.innerHTML = '';
@@ -73,9 +59,54 @@
                         onDoneClick: switchTodoItemDone,
                         onDeleteClick: deleteTodoItem,
                     });
+                } else if (storage === 'server') {
                     localStorage.setItem('storage', JSON.stringify('local'));
+                    todoItemList = getTodoListLocal(owner);
+                    buttonSwitch.textContent = 'переключиться на серверное хранилище';
+                    container.innerHTML = '';
+                    createTodoApp(document.getElementById('todo-app'), {
+                        title: 'Мои дела',
+                        owner,
+                        todoItemList,
+                        onCreateFormSubmit: createTodoItem,
+                        onDoneClick: switchTodoItemDone,
+                        onDeleteClick: deleteTodoItem,
+                    });
                 }
             })
+
+            // buttonSwitch.addEventListener('click', async () => {
+            //     let storageString = localStorage.getItem('storage');
+            //     let storage = JSON.parse(storageString);
+
+            //     if (storage === 'local') {
+            //         todoItemList = getTodoListLocal(owner);
+            //         buttonSwitch.textContent = 'переключиться на серверное хранилище';
+            //         container.innerHTML = '';
+            //         createTodoApp(document.getElementById('todo-app'), {
+            //             title: 'Мои дела',
+            //             owner,
+            //             todoItemList,
+            //             onCreateFormSubmit: createTodoItem,
+            //             onDoneClick: switchTodoItemDone,
+            //             onDeleteClick: deleteTodoItem,
+            //         });
+            //         localStorage.setItem('storage', JSON.stringify('server'));
+            //     } else if (storage === 'server') {
+            //         todoItemList = await getTodoList(owner);
+            //         buttonSwitch.textContent = 'переключиться на локальное хранилище';
+            //         container.innerHTML = '';
+            //         createTodoApp(document.getElementById('todo-app'), {
+            //             title: 'Мои дела',
+            //             owner,
+            //             todoItemList,
+            //             onCreateFormSubmit: createTodoItem,
+            //             onDoneClick: switchTodoItemDone,
+            //             onDeleteClick: deleteTodoItem,
+            //         });
+            //         localStorage.setItem('storage', JSON.stringify('local'));
+            //     }
+            // })
 
 
             // const todoItemList = await getTodoList(owner);
